@@ -15,13 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-let index = require('./routes/index');
-let users = require('./routes/users');
-let rooms = require('./routes/rooms');
-
-app.use('/', index);
-app.use('/users', users);
-app.use('/rooms', rooms);
+app.use('/rooms', require('./rooms/routes'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,6 +27,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  console.log(err);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
